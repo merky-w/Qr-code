@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9th Vojvodina Open ITF - Tournament Brackets</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a3a6c 0%, #0d2a52 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+        color: white;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .main-menu {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 50px;
+        flex-wrap: wrap;
+      }
+
+      .menu-btn {
+        padding: 30px 60px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .patterns-btn {
+        background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+        color: #1a3a6c;
+      }
+
+      .patterns-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .sparring-btn {
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        color: white;
+      }
+
+      .sparring-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .pdf-viewer {
+        display: none;
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .pdf-viewer.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .viewer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #d4af37;
+      }
+
+      .viewer-title {
+        font-size: 1.8rem;
+        color: #1a3a6c;
+        font-weight: bold;
+      }
+
+      .back-btn {
+        padding: 12px 30px;
+        background: #1a3a6c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .back-btn:hover {
+        background: #0d2a52;
+        transform: translateX(-5px);
+      }
+
+      .pdf-container {
+        width: 100%;
+        height: 900px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .pdf-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .scroll-hint {
+        text-align: center;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin-top: 15px;
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 1.8rem;
+        }
+
+        .menu-btn {
+          padding: 20px 40px;
+          font-size: 1.2rem;
+        }
+
+        .pdf-container {
+          height: 600px;
+        }
+
+        .viewer-header {
+          flex-direction: column;
+          gap: 15px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🥋 9th Vojvodina Open ITF</h1>
+        <p>Tournament Brackets & Draws</p>
+      </header>
+
+      <!-- Main Menu -->
+      <div id="mainMenu" class="main-menu">
+        <button class="menu-btn patterns-btn" onclick="showPDF('patterns')">
+          📋 Patterns (Tul)
+        </button>
+        <button class="menu-btn sparring-btn" onclick="showPDF('sparring')">
+          🥊 Sparring (Matsogi)
+        </button>
+      </div>
+
+      <!-- Patterns PDF Viewer -->
+      <div id="patternsViewer" class="pdf-viewer">
+        <div class="viewer-header">
+          <h2 class="viewer-title">📋 Patterns Tournament Brackets</h2>
+          <button class="back-btn" onclick="goBack()">← Back to Menu</button>
+        </div>
+        <div class="pdf-container">
+          <iframe
+            src="https://cziwnycosdxeuacslcza.supabase.co/storage/v1/object/public/teakwondo%20patterns/Tournament%20Manager%20-%209-th%20Vojvodina%20Open%20ITF.pdf"
+            type="application/pdf"
+            title="Patterns Brackets PDF"
+          >
+          </iframe>
+        </div>
+        <div class="scroll-hint">
+          📜 Use the scroll bar on the right or mouse wheel to navigate through
+          the brackets
+        </div>
+      </div>
+
+      <!-- Sparring PDF Viewer -->
+      <div id="sparringViewer" class="pdf-viewer">
+        <div class="viewer-header">
+          <h2 class="viewer-title">🥊 Sparring Tournament Brackets</h2>
+          <button class="back-btn" onclick="goBack()">← Back to Menu</button>
+        </div>
+        <div class="pdf-container">
+          <iframe
+            src="https://cziwnycosdxeuacslcza.supabase.co/storage/v1/object/public/teakwondo%20sparring/Tournament%20Manager%20-%209-th%20Vojvodina%20Open%20ITF.pdf"
+            type="application/pdf"
+            title="Sparring Brackets PDF"
+          >
+          </iframe>
+        </div>
+        <div class="scroll-hint">
+          📜 Use the scroll bar on the right or mouse wheel to navigate through
+          the brackets
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showPDF(type) {
+        // Hide main menu
+        document.getElementById("mainMenu").style.display = "none";
+
+        // Hide all viewers first
+        document.getElementById("patternsViewer").classList.remove("active");
+        document.getElementById("sparringViewer").classList.remove("active");
+
+        // Show selected viewer
+        if (type === "patterns") {
+          document.getElementById("patternsViewer").classList.add("active");
+        } else if (type === "sparring") {
+          document.getElementById("sparringViewer").classList.add("active");
+        }
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function goBack() {
+        // Hide all viewers
+        document.getElementById("patternsViewer").classList.remove("active");
+        document.getElementById("sparringViewer").classList.remove("active");
+
+        // Show main menu
+        document.getElementById("mainMenu").style.display = "flex";
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    </script>
+  </body>
+</html>
